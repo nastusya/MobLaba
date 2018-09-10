@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name"> </string>
-    <string name="edit_text">Input your name</string>
-    <string name="clear_button">Clear</string>
-    <string name="hello_button">Say Hello!</string>
+    <string name="submit_button">Submit</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
 </resources>
