@@ -7,4 +7,11 @@
     <string name="phone">Phone</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="FirstName">Please enter valid First Name </string>
+    <string name="LastName">Please enter valid Last Name </string>
+    <string name="Email">Please enter valid Email </string>
+    <string name="Phone">Please enter valid Phone Number </string>
+    <string name="Password">Please enter valid Password</string>
+    <string name="Confirm">Please enter your Password</string>
+
 </resources>

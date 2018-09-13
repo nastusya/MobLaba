@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private EditText firstName, lastName, email, phone, password, confirmPassword;
-    private Button submitButton;
     private String name, last_name, emailAddress, phoneNumber, pass, confirm;
+    public Button submitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,13 +21,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void signIn() {
-        firstName = (EditText) findViewById(R.id.first_name);
-        lastName = (EditText) findViewById(R.id.last_name);
-        email = (EditText) findViewById(R.id.email);
-        phone = (EditText) findViewById(R.id.phone);
-        password = (EditText) findViewById(R.id.password);
-        confirmPassword = (EditText) findViewById(R.id.confirm_password);
-        submitButton = (Button) findViewById(R.id.submit_button);
+        firstName = findViewById(R.id.first_name);
+        lastName = findViewById(R.id.last_name);
+        email = findViewById(R.id.email);
+        phone = findViewById(R.id.phone);
+        password = findViewById(R.id.password);
+        confirmPassword = findViewById(R.id.confirm_password);
+        submitButton = findViewById(R.id.submit_button);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,51 +40,45 @@ public class MainActivity extends AppCompatActivity {
         initialize();
         if (!validate()) {
             Toast.makeText(this, "Submit has failed", Toast.LENGTH_SHORT).show();
-        } else {
-            onSubmitSuccess();
         }
-    }
-
-    public void onSubmitSuccess() {
     }
 
     public boolean validate() {
         boolean valid = true;
         if (name.isEmpty() || name.length() > 32) {
-            firstName.setError("Please enter valid Name");
+            firstName.setError(getString(R.string.FirstName));
             valid = false;
         }
         if (last_name.isEmpty() || last_name.length() > 32) {
-            lastName.setError("Please enter valid Last Name");
+            lastName.setError(getString(R.string.LastName));
             valid = false;
         }
 
         if (emailAddress.isEmpty() || Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches()) {
-            email.setError("Please enter valid Email Address");
+            email.setError(getString(R.string.Email));
             valid = false;
         }
         if (phoneNumber.isEmpty() || Patterns.PHONE.matcher(phoneNumber).matches()) {
-            phone.setError("Please enter valid Phone");
+            phone.setError(getString(R.string.Phone));
             valid = false;
         }
         if (pass.isEmpty()) {
-            password.setError("Please enter valid Password");
+            password.setError(getString(R.string.Password));
             valid = false;
         }
         if (confirm.isEmpty()) {
-            confirmPassword.setError("Please check your Password one more");
+            confirmPassword.setError(getString(R.string.Confirm));
             valid = false;
         }
         return valid;
     }
 
-    public void initialize() {
+    private void initialize() {
         name = firstName.getText().toString().trim();
         last_name = lastName.getText().toString().trim();
         emailAddress = email.getText().toString().trim();
         phoneNumber = phone.getText().toString().trim();
         pass = password.getText().toString().trim();
         confirm = confirmPassword.getText().toString().trim();
-
     }
 }
