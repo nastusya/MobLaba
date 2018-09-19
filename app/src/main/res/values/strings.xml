@@ -12,6 +12,17 @@
     <string name="Email">Please enter valid Email </string>
     <string name="Phone">Please enter valid Phone Number </string>
     <string name="Password">Please enter valid Password</string>
-    <string name="Confirm">Please enter your Password</string>
+    <string name="short_first_name_error">- First name must have at least 3 characters\n</string>
+    <string name="upper_case_first_name_error">- First name must be started with upper
+        case\n</string>
+    <string name="short_last_name_error">- Last name must have at least 4 characters\n</string>
+    <string name="upper_case_last_name_error">- Last name must be started with upper case\n</string>
+    <string name="invalid_email_error">- Email address is invalid\n</string>
+    <string name="invalid_phone_error">- Phone number is invalid\n</string>
+    <string name="short_password_error">- Password must be between 5 and 12
+        alphanumeric characters\n</string>
+    <string name="not_equals_password_error">- Re-entered password not equals password\n</string>
+    <string name="snackbar_valid_info">Validation was successful.
+        View your data on click \'View List\'</string>
 
 </resources>
