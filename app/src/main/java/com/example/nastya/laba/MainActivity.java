@@ -15,7 +15,8 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
     private Set <String> errorsSet = new HashSet <>();
     private TextView errorText;
-    private EditText inputFirstName, inputLastName, inputEmail,inputPhone, inputPassword, inputPasswordReEnter;
+    private EditText inputFirstName, inputLastName, inputEmail,inputPhone, inputPassword,
+            inputPasswordReEnter;
     public Button submitButton;
 
     @Override
@@ -66,23 +67,17 @@ public class MainActivity extends AppCompatActivity {
         String firstName = inputFirstName.getText().toString();
         if (firstName.isEmpty() || firstName.length() < 3) {
             errorsSet.add(getString(R.string.short_first_name_error));
-        } else if (Character.isLowerCase(firstName.charAt(0))) {
-            errorsSet.add(getString(R.string.upper_case_first_name_error));
         } else {
             errorsSet.remove(getString(R.string.short_first_name_error));
-            errorsSet.remove(getString(R.string.upper_case_first_name_error));
         }
     }
 
     private void lastNameValidation() {
         String lastName = inputLastName.getText().toString();
-        if (lastName.isEmpty() || lastName.length() < 4) {
+        if (lastName.isEmpty() || lastName.length() < 3) {
             errorsSet.add(getString(R.string.short_last_name_error));
-        } else if (Character.isLowerCase(lastName.charAt(0))) {
-            errorsSet.add(getString(R.string.upper_case_last_name_error));
         } else {
             errorsSet.remove(getString(R.string.short_last_name_error));
-            errorsSet.remove(getString(R.string.upper_case_last_name_error));
         }
     }
 
