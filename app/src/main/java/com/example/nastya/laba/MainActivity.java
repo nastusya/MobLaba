@@ -1,6 +1,10 @@
 package com.example.nastya.laba;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
@@ -15,9 +19,10 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
     private Set <String> errorsSet = new HashSet <>();
     private TextView errorText;
-    private EditText inputFirstName, inputLastName, inputEmail,inputPhone, inputPassword,
+    private EditText inputFirstName, inputLastName, inputEmail, inputPhone, inputPassword,
             inputPasswordReEnter;
-    public Button submitButton;
+    public Button submitButton,viewListButton;
+    public String firstName, lastName, phoneNumber, email, password, passwordReEnter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         inputPasswordReEnter = findViewById(R.id.confirm_password);
         errorText = findViewById(R.id.result);
         submitButton = findViewById(R.id.submit_button);
+        viewListButton = findViewById(R.id.view_list_button);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,19 +45,13 @@ public class MainActivity extends AppCompatActivity {
                 cleanUserData(view);
             }
         });
-    }
-
-    private void cleanUserData(View view) {
-        if (errorsSet.isEmpty()) {
-            inputFirstName.setText("");
-            inputLastName.setText("");
-            inputPhone.setText("");
-            inputEmail.setText("");
-            inputPassword.setText("");
-            inputPasswordReEnter.setText("");
-            Snackbar.make(view, R.string.snackbar_valid_info, Snackbar.LENGTH_SHORT)
-                    .setAction("Action", null).show();
-        }
+        viewListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ClientActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void userValidation() {
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void firstNameValidation() {
-        String firstName = inputFirstName.getText().toString();
+        firstName = inputFirstName.getText().toString();
         if (firstName.isEmpty() || firstName.length() < 3) {
             errorsSet.add(getString(R.string.short_first_name_error));
         } else {
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void lastNameValidation() {
-        String lastName = inputLastName.getText().toString();
+        lastName = inputLastName.getText().toString();
         if (lastName.isEmpty() || lastName.length() < 3) {
             errorsSet.add(getString(R.string.short_last_name_error));
         } else {
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void emailValidation() {
-        String email = inputEmail.getText().toString();
+        email = inputEmail.getText().toString();
         if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             errorsSet.add(getString(R.string.invalid_email_error));
         } else {
@@ -91,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void phoneValidation() {
-        String phone = inputPhone.getText().toString();
-        if (phone.isEmpty() || !Patterns.PHONE.matcher(phone).matches()) {
+        phoneNumber = inputPhone.getText().toString();
+        if (phoneNumber.isEmpty() || !Patterns.PHONE.matcher(phoneNumber).matches()) {
             errorsSet.add(getString(R.string.invalid_phone_error));
         } else {
             errorsSet.remove(getString(R.string.invalid_phone_error));
@@ -100,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void passwordValidation() {
-        String password = inputPassword.getText().toString();
-        String passwordReEnter = inputPasswordReEnter.getText().toString();
+        password = inputPassword.getText().toString();
+        passwordReEnter = inputPasswordReEnter.getText().toString();
         if (password.isEmpty() || password.length() < 5 || password.length() > 12) {
             errorsSet.add(getString(R.string.short_password_error));
         } else {
@@ -112,6 +112,26 @@ public class MainActivity extends AppCompatActivity {
             errorsSet.add(getString(R.string.not_equals_password_error));
         } else {
             errorsSet.remove(getString(R.string.not_equals_password_error));
+        }
+    }
+
+    private void cleanUserData(View view) {
+        if (errorsSet.isEmpty()) {
+            SharedPreferences sharedPref = getSharedPreferences(Const.DATA_KEY,
+                    Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString(Const.FIRST_NAME_KEY, firstName);
+            editor.putString(Const.LAST_NAME_KEY, lastName);
+            editor.putString(Const.PHONE_NUMBER_KEY, phoneNumber);
+            editor.apply();
+            inputFirstName.setText("");
+            inputLastName.setText("");
+            inputPhone.setText("");
+            inputEmail.setText("");
+            inputPassword.setText("");
+            inputPasswordReEnter.setText("");
+            Snackbar.make(view, R.string.snackbar_valid_info, Snackbar.LENGTH_SHORT)
+                    .setAction("Action", null).show();
         }
     }
 }
