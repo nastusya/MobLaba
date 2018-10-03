@@ -6,27 +6,33 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private Set <String> errorsSet = new HashSet <>();
+    public ArrayList <UserModel> userArrayList;
     private TextView errorText;
     private EditText inputFirstName, inputLastName, inputEmail, inputPhone, inputPassword,
             inputPasswordReEnter;
-    public Button submitButton,viewListButton;
+    public Button submitButton, viewListButton;
     public String firstName, lastName, phoneNumber, email, password, passwordReEnter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        userArrayList = new ArrayList<>();
         inputFirstName = findViewById(R.id.first_name);
         inputLastName = findViewById(R.id.last_name);
         inputEmail = findViewById(R.id.email);
@@ -44,11 +50,12 @@ public class MainActivity extends AppCompatActivity {
                 cleanUserData(view);
             }
         });
+
         viewListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ClientActivity.class);
-                startActivity(intent);
+                Intent user_list = new Intent(getBaseContext(), UserActivity.class);
+                startActivity(user_list);
             }
         });
     }
@@ -106,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             errorsSet.remove(getString(R.string.short_password_error));
         }
-
         if (passwordReEnter.isEmpty() || !passwordReEnter.equals(password)) {
             errorsSet.add(getString(R.string.not_equals_password_error));
         } else {
@@ -116,12 +122,22 @@ public class MainActivity extends AppCompatActivity {
 
     private void cleanUserData(View view) {
         if (errorsSet.isEmpty()) {
-            SharedPreferences sharedPref = getSharedPreferences(Const.DATA_KEY,
+            String first_name_value = String.valueOf(inputFirstName.getText());
+            String last_name_value = String.valueOf(inputLastName.getText());
+            String phone_value = String.valueOf(inputPhone.getText());
+
+            UserModel user = new UserModel(first_name_value,
+                    last_name_value, phone_value);
+
+            userArrayList.add(user);
+            Gson gson = new Gson();
+            String json = gson.toJson(userArrayList);
+            Log.i("users", json);
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(
+                    "user_list",
                     Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString(Const.FIRST_NAME_KEY, firstName);
-            editor.putString(Const.LAST_NAME_KEY, lastName);
-            editor.putString(Const.PHONE_NUMBER_KEY, phoneNumber);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("user_list",json);
             editor.apply();
             inputFirstName.setText("");
             inputLastName.setText("");
