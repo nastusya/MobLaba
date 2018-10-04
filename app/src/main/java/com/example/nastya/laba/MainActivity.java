@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         errorText = findViewById(R.id.result);
         submitButton = findViewById(R.id.submit_button);
         viewListButton = findViewById(R.id.view_list_button);
-
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,10 +124,8 @@ public class MainActivity extends AppCompatActivity {
             String first_name_value = String.valueOf(inputFirstName.getText());
             String last_name_value = String.valueOf(inputLastName.getText());
             String phone_value = String.valueOf(inputPhone.getText());
-
             UserModel user = new UserModel(first_name_value,
                     last_name_value, phone_value);
-
             userArrayList.add(user);
             Gson gson = new Gson();
             String json = gson.toJson(userArrayList);
