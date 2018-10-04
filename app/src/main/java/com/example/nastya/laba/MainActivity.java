@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        userArrayList = new ArrayList<>();
+        userArrayList = new ArrayList <>();
         inputFirstName = findViewById(R.id.first_name);
         inputLastName = findViewById(R.id.last_name);
         inputEmail = findViewById(R.id.email);
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                     "user_list",
                     Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("user_list",json);
+            editor.putString("user_list", json);
             editor.apply();
             inputFirstName.setText("");
             inputLastName.setText("");

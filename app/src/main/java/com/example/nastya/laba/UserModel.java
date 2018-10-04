@@ -3,7 +3,7 @@ package com.example.nastya.laba;
 public class UserModel {
     private String lastName, firstName, phone;
 
-    UserModel(String firstName, String lastName, String phoneNumber){
+    UserModel(String firstName, String lastName, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phoneNumber;
