@@ -121,21 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void cleanUserData(View view) {
         if (errorsSet.isEmpty()) {
-            String first_name_value = String.valueOf(inputFirstName.getText());
-            String last_name_value = String.valueOf(inputLastName.getText());
-            String phone_value = String.valueOf(inputPhone.getText());
-            UserModel user = new UserModel(first_name_value,
-                    last_name_value, phone_value);
-            userArrayList.add(user);
-            Gson gson = new Gson();
-            String json = gson.toJson(userArrayList);
-            Log.i("users", json);
-            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(
-                    "user_list",
-                    Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("user_list", json);
-            editor.apply();
+            saveUserData();
             inputFirstName.setText("");
             inputLastName.setText("");
             inputPhone.setText("");
@@ -145,5 +131,23 @@ public class MainActivity extends AppCompatActivity {
             Snackbar.make(view, R.string.snackbar_valid_info, Snackbar.LENGTH_SHORT)
                     .setAction("Action", null).show();
         }
+    }
+
+    public void saveUserData() {
+        String first_name_value = String.valueOf(inputFirstName.getText());
+        String last_name_value = String.valueOf(inputLastName.getText());
+        String phone_value = String.valueOf(inputPhone.getText());
+        UserModel user = new UserModel(first_name_value,
+                last_name_value, phone_value);
+        userArrayList.add(user);
+        Gson gson = new Gson();
+        String json = gson.toJson(userArrayList);
+        Log.i("users", json);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(
+                "user_list",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("user_list", json);
+        editor.apply();
     }
 }

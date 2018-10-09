@@ -16,12 +16,18 @@ import java.util.List;
 
 public class UserActivity extends AppCompatActivity {
 
+    public Gson gson;
+    public List <UserModel> listOfUsers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
-        Gson gson = new Gson();
-        List <UserModel> listOfUsers;
+        addUserToList();
+    }
+
+    public void addUserToList() {
+        gson = new Gson();
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
                 "user_list", Context.MODE_PRIVATE);
         String jsonPreferences = sharedPref.getString("user_list", "");
