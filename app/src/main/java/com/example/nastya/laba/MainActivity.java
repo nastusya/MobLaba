@@ -14,9 +14,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
             inputPasswordReEnter;
     public Button submitButton, viewListButton;
     public String firstName, lastName, phoneNumber, email, password, passwordReEnter;
+    Gson gson = new Gson();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void cleanUserData(View view) {
         if (errorsSet.isEmpty()) {
-            saveUserData();
+            callUserSaving();
             inputFirstName.setText("");
             inputLastName.setText("");
             inputPhone.setText("");
@@ -133,14 +138,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void saveUserData() {
+    public void callUserSaving() {
         String first_name_value = String.valueOf(inputFirstName.getText());
         String last_name_value = String.valueOf(inputLastName.getText());
         String phone_value = String.valueOf(inputPhone.getText());
         UserModel user = new UserModel(first_name_value,
                 last_name_value, phone_value);
+        userArrayList = getSavedUsers();
+        saveNewUser(user);
+    }
+
+    public ArrayList <UserModel> getSavedUsers() {
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                "user_list", Context.MODE_PRIVATE);
+        String jsonPreferences = sharedPref.getString("user_list", "");
+        Log.i("users", jsonPreferences);
+        if (!jsonPreferences.equals("")) {
+            Type type = new TypeToken <List <UserModel>>() {
+            }.getType();
+            userArrayList = gson.fromJson(jsonPreferences, type);
+            Log.i("users", userArrayList.toString());
+        }
+        return userArrayList;
+    }
+
+    public void saveNewUser(UserModel user) {
+        userArrayList = getSavedUsers();
         userArrayList.add(user);
-        Gson gson = new Gson();
         String json = gson.toJson(userArrayList);
         Log.i("users", json);
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(
