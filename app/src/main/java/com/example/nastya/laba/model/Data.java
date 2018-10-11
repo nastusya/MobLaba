@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-class Data {
+public class Data {
 
     @SerializedName("modhash")
     @Expose
@@ -14,14 +14,14 @@ class Data {
 
     @SerializedName("children")
     @Expose
-    private ArrayList<Children> children;
+    private ArrayList <Children> children;
+
+    public ArrayList <Children> getChildren() {
+        return children;
+    }
 
     public String getModhash() {
         return modhash;
-    }
-
-    public ArrayList<Children> getChildren() {
-        return children;
     }
 
     @Override

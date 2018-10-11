@@ -3,7 +3,7 @@ package com.example.nastya.laba.model.children;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-class Data {
+public class Data {
 
     @SerializedName("author_fullname")
     @Expose

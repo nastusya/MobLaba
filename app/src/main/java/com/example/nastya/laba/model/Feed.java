@@ -18,7 +18,6 @@ public class Feed {
     }
 
     public String getKind() {
-
         return kind;
     }
 
