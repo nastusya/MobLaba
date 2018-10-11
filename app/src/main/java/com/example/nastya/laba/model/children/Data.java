@@ -7,7 +7,7 @@ public class Data {
 
     @SerializedName("author_fullname")
     @Expose
-    private String author_fullname;
+    private String authorFullname;
 
     @SerializedName("title")
     @Expose
@@ -15,7 +15,7 @@ public class Data {
 
     @SerializedName("link_flair_text_color")
     @Expose
-    private String link_flair_text_color;
+    private String linkFlairTextColor;
 
     @SerializedName("thumbnail")
     @Expose
@@ -33,16 +33,16 @@ public class Data {
         return name;
     }
 
-    public String getAuthor_fullname() {
-        return author_fullname;
+    public String getAuthorFullname() {
+        return authorFullname;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String getLink_flair_text_color() {
-        return link_flair_text_color;
+    public String getLinkFlairTextColor() {
+        return linkFlairTextColor;
     }
 
     public String getThumbnail() {
@@ -56,9 +56,9 @@ public class Data {
     @Override
     public String toString() {
         return "Data{" +
-                "author_fullname='" + author_fullname + '\'' +
+                "author_fullname='" + authorFullname + '\'' +
                 ", title='" + title + '\'' +
-                ", link_flair_text_color='" + link_flair_text_color + '\'' +
+                ", link_flair_text_color='" + linkFlairTextColor + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
                 ", subreddit='" + subreddit + '\'' +
                 ", name='" + name + '\'' +
