@@ -1,4 +1,4 @@
-package com.example.nastya.laba.interfaces;
+package com.example.nastya.laba.http_client;
 
 import com.example.nastya.laba.model.Feed;
 

@@ -21,5 +21,6 @@
     <string name="not_equals_password_error">- Not the same password\n</string>
     <string name="snackbar_valid_info">Validation was successful</string>
     <string name="view_list">View List</string>
+    <string name="no_data">No Data</string>
 
 </resources>

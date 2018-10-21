@@ -13,10 +13,6 @@ public class Data {
     @Expose
     private String title;
 
-    @SerializedName("link_flair_text_color")
-    @Expose
-    private String linkFlairTextColor;
-
     @SerializedName("thumbnail")
     @Expose
     private String thumbnail;
@@ -25,24 +21,12 @@ public class Data {
     @Expose
     private String subreddit;
 
-    @SerializedName("name")
-    @Expose
-    private String name;
-
-    public String getName() {
-        return name;
-    }
-
     public String getAuthorFullname() {
         return authorFullname;
     }
 
     public String getTitle() {
         return title;
-    }
-
-    public String getLinkFlairTextColor() {
-        return linkFlairTextColor;
     }
 
     public String getThumbnail() {
@@ -58,10 +42,8 @@ public class Data {
         return "Data{" +
                 "author_fullname='" + authorFullname + '\'' +
                 ", title='" + title + '\'' +
-                ", link_flair_text_color='" + linkFlairTextColor + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
                 ", subreddit='" + subreddit + '\'' +
-                ", name='" + name + '\'' +
                 '}';
     }
 }
