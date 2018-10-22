@@ -1,5 +1,6 @@
 package com.example.nastya.laba.adapters;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.nastya.laba.R;
 import com.squareup.picasso.Picasso;
 
 import com.example.nastya.laba.model.children.Children;
@@ -24,14 +26,14 @@ public class RedditAdapter extends RecyclerView.Adapter <RedditAdapter.RedditVie
     }
 
     @Override
-    public RedditViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.photo_list_item,
+    public final RedditViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.content,
                 parent, false);
         return new RedditViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(RedditViewHolder holder, int position) {
+    public final void onBindViewHolder(@NonNull RedditViewHolder holder, int position) {
         holder.title.setText(photos.get(position).getData().getTitle());
         holder.author.setText(photos.get(position).getData().getAuthorFullname());
         Picasso.get().load(photos.get(position).getData().getThumbnail()).into(holder.image);
@@ -43,11 +45,11 @@ public class RedditAdapter extends RecyclerView.Adapter <RedditAdapter.RedditVie
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public final void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    public void clear() {
+    public final void clear() {
         photos.clear();
         notifyDataSetChanged();
     }

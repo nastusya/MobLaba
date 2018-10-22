@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.swipeContainer)
     SwipeRefreshLayout swipeContainer;
     @BindView(R.id.list_photos)
-    private RecyclerView recyclerView;
+    RecyclerView recyclerView;
     private static RedditAdapter adapter;
 
     @Override

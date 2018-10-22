@@ -1,5 +1,6 @@
 package com.example.nastya.laba.http_client;
 
+import com.example.nastya.laba.R;
 import com.example.nastya.laba.activities.MainActivity;
 import com.example.nastya.laba.model.Feed;
 import com.example.nastya.laba.model.children.Children;
@@ -24,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Controller implements Callback <Feed> {
 
     @BindView(R.id.no_data)
-    private ImageView noData ;
+    ImageView noData ;
     private final static String BASE_URL = "https://reddit.com/";
     private final static String TAG = "Controller";
 

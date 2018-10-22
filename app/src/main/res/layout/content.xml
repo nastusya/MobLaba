@@ -29,14 +29,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:background="@color/colorTransparentDark"
+                android:background="@color/colorAccent"
                 android:minHeight="50dp"
                 android:orientation="vertical"
                 android:padding="8dp">
 
                 <TextView
                     android:id="@+id/tags"
-                    style="@style/PixabayImageTextTags"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
@@ -44,7 +43,6 @@
 
                 <TextView
                     android:id="@+id/user"
-                    style="@style/PixabayImageTextUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start" />
