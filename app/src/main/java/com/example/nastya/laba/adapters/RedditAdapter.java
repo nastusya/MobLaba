@@ -32,7 +32,7 @@ public class RedditAdapter extends RecyclerView.Adapter <RedditViewHolder> {
     @Override
     public final void onBindViewHolder(@NonNull RedditViewHolder holder, int position) {
         holder.title.setText(photos.get(position).getData().getTitle());
-        holder.user.setText(photos.get(position).getData().getAuthorFullname());
+        holder.user.setText(photos.get(position).getData().getSubreddit());
         Picasso.get().load(photos.get(position).getData().getThumbnail()).into(holder.image);
     }
 
