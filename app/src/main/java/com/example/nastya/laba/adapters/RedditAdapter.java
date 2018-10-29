@@ -14,10 +14,12 @@ import com.example.nastya.laba.model.children.Children;
 import java.util.ArrayList;
 
 public class RedditAdapter extends RecyclerView.Adapter <RedditViewHolder> {
-    private final ArrayList <Children> photos;
+    private final ArrayList <Children> photos = new ArrayList <>();
 
     public RedditAdapter(ArrayList <Children> photos) {
-        this.photos = photos;
+        int position = getItemCount();
+        this.photos.addAll(photos);
+        notifyItemRangeInserted(position, this.photos.size());
     }
 
     @Override
@@ -37,10 +39,5 @@ public class RedditAdapter extends RecyclerView.Adapter <RedditViewHolder> {
     @Override
     public int getItemCount() {
         return photos.size();
-    }
-
-    @Override
-    public final void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
     }
 }

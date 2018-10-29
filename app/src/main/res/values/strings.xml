@@ -22,5 +22,7 @@
     <string name="snackbar_valid_info">Validation was successful</string>
     <string name="view_list">View List</string>
     <string name="no_data">No Data</string>
+    <string name="successful_response">Successful response</string>
+    <string name="unsuccessful_response">Unsuccessful response</string>
 
 </resources>
