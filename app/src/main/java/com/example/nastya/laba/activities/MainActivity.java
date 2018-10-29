@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.swipeContainer)
     SwipeRefreshLayout swipeContainer;
     public static RedditAdapter adapter;
-    private final static String TAG = "Controller";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void setmAdapter(ArrayList <Children> data) {
         adapter = new RedditAdapter(data);
-        RecyclerView.LayoutManager layoutManager =
-                new LinearLayoutManager(MainActivity.this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
