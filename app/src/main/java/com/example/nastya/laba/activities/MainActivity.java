@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.example.nastya.laba.R;
 import com.example.nastya.laba.adapters.RedditAdapter;
-import com.example.nastya.laba.http_client.ApiClientInstance;
+import com.example.nastya.laba.ApplicationEx;
 import com.example.nastya.laba.model.Feed;
 import com.example.nastya.laba.model.children.Children;
 
@@ -25,11 +25,11 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.list_photos)
-    RecyclerView recyclerView;
+    protected RecyclerView recyclerView;
     public ImageView noData;
     @BindView(R.id.swipeContainer)
-    SwipeRefreshLayout swipeContainer;
-    public static RedditAdapter adapter;
+    protected SwipeRefreshLayout swipeContainer;
+    public RedditAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         Log.d("MainActivity", "Start main activity");
-        makeCall();
+    }
+
+    @Override
+    protected void onResume() {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -46,11 +49,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         makeCall();
+        super.onResume();
     }
 
     public void makeCall() {
-        Call <Feed> call = ApiClientInstance.getApiService().getData();
-        call.clone().enqueue(new Callback <Feed>() {
+        Call <Feed> call = ((ApplicationEx) getApplication()).getApiService().getData();
+        call.enqueue(new Callback <Feed>() {
             @Override
             public void onResponse(Call <Feed> call, Response <Feed> response) {
                 Toast.makeText(MainActivity.this, R.string.successful_response,
@@ -64,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call <Feed> call, Throwable t) {
+            public void onFailure(Call <Feed> call, Throwable throwable) {
                 Toast.makeText(MainActivity.this, R.string.unsuccessful_response
-                        + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        + throwable.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

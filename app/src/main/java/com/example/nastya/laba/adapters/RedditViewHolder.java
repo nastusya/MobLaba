@@ -12,11 +12,11 @@ import butterknife.ButterKnife;
 
 class RedditViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tags)
-    TextView title;
+    protected TextView title;
     @BindView(R.id.user)
-    TextView user;
+    protected TextView user;
     @BindView(R.id.image)
-    ImageView image;
+    protected ImageView image;
 
     RedditViewHolder(View itemView) {
         super(itemView);
