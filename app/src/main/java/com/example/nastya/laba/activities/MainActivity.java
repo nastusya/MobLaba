@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     public ImageView noData;
     @BindView(R.id.swipeContainer)
     protected SwipeRefreshLayout swipeContainer;
-    public RedditAdapter adapter;
+    RedditAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +76,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setAdapter(ArrayList <Children> data) {
-        adapter = new RedditAdapter(data);
+        adapter = RedditAdapter.getRedditAdapter();
+        adapter.loadData(data);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);

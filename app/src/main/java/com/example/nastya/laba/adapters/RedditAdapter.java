@@ -15,8 +15,20 @@ import java.util.ArrayList;
 
 public class RedditAdapter extends RecyclerView.Adapter <RedditViewHolder> {
     private final ArrayList <Children> photos = new ArrayList <>();
+    private static RedditAdapter redditAdapter = null;
 
-    public RedditAdapter(ArrayList <Children> photos) {
+    public static RedditAdapter getRedditAdapter() {
+        if (redditAdapter == null) {
+            redditAdapter = new RedditAdapter();
+        }
+        return redditAdapter;
+    }
+
+    RedditAdapter() {
+
+    }
+
+    public void loadData (ArrayList <Children> photos){
         int position = getItemCount();
         this.photos.addAll(photos);
         notifyItemRangeInserted(position, this.photos.size());
