@@ -3,6 +3,7 @@ package com.example.nastya.laba.adapters;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.nastya.laba.R;
@@ -17,6 +18,8 @@ class RedditViewHolder extends RecyclerView.ViewHolder {
     protected TextView user;
     @BindView(R.id.image)
     protected ImageView image;
+    @BindView(R.id.parent_layout)
+    LinearLayout parentLayout;
 
     RedditViewHolder(View itemView) {
         super(itemView);

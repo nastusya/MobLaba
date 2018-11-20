@@ -11,14 +11,14 @@ public class ApplicationEx extends Application {
 
     private static final String ROOT_URL = "https://reddit.com/";
 
-    private Retrofit getRetrofitInstance() {
+    private static Retrofit getRetrofitInstance() {
         return new Retrofit.Builder()
                 .baseUrl(ROOT_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
 
-    public RedditApi getApiService() {
+    public static RedditApi getApiService() {
         return getRetrofitInstance().create(RedditApi.class);
     }
 }

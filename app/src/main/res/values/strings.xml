@@ -21,8 +21,21 @@
     <string name="not_equals_password_error">- Not the same password\n</string>
     <string name="snackbar_valid_info">Validation was successful</string>
     <string name="view_list">View List</string>
-    <string name="no_data">No Data</string>
     <string name="successful_response">Successful response</string>
     <string name="unsuccessful_response">Unsuccessful response</string>
-
+    <string name="no_data">No data</string>
+    <string name="favourites">Favourites</string>
+    <string name="add_to_fav">Add to favourites</string>
+    <string name="author">Author</string>
+    <string name="mal_id">ID</string>
+    <string name="char_name">Character name</string>
+    <string name="char_role">Character role</string>
+    <string name="example">example</string>
+    <string name="tags">Tags</string>
+    <string name="views">Views</string>
+    <string name="downloads">Downloads</string>
+    <string name="title_list">Reddit List</string>
+    <string name="title_favourite">Favourite</string>
+    <string name="comments">Comments</string>
+    <string name="remove_from_fav">Remove from favourites</string>
 </resources>
