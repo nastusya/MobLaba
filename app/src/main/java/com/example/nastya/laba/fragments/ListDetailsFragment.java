@@ -3,6 +3,7 @@ package com.example.nastya.laba.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,20 +25,20 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ListDetailsFragment extends Fragment {
-    private DetailsAdapter detailsAdapter;
+    DetailsAdapter detailsAdapter;
     private boolean isImageFitToScreen;
     private SharedPreferences sharedPreferences;
     public final static String ARG_TITLE = "Children";
     public final static String FAVOURITE = "Favourite";
     private Children children;
 
-    @BindView(R.id.detail_char_name)
+    @BindView(R.id.detail_name)
     protected TextView characterName;
-    @BindView(R.id.detail_char_image)
+    @BindView(R.id.detail_image)
     protected ImageView characterImage;
-    @BindView(R.id.detail_char_role)
+    @BindView(R.id.detail_title)
     protected TextView characterRole;
-    @BindView(R.id.detail_char_id)
+    @BindView(R.id.detail_subbredit)
     protected TextView characterID;
     @BindView(R.id.detail_recycler_view)
     protected RecyclerView recyclerView;
@@ -45,7 +46,7 @@ public class ListDetailsFragment extends Fragment {
     protected ImageView favorite;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_details, container, false);
         ButterKnife.bind(this, view);
@@ -64,7 +65,7 @@ public class ListDetailsFragment extends Fragment {
         return view;
     }
 
-    @OnClick(R.id.detail_char_image)
+    @OnClick(R.id.detail_image)
     void fullScreenImage() {
         if (isImageFitToScreen) {
             isImageFitToScreen = false;

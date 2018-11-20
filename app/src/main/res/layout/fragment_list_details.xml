@@ -17,9 +17,9 @@ tools:context=".fragments.ListDetailsFragment">
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/detail_char_image"
-        android:layout_width="130dp"
-        android:layout_height="200dp"
+        android:id="@+id/detail_image"
+        android:layout_width="168dp"
+        android:layout_height="173dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:src="@mipmap/ic_launcher"
@@ -27,37 +27,37 @@ tools:context=".fragments.ListDetailsFragment">
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/detail_char_name"
+        android:id="@+id/detail_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:text="@string/char_name"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/detail_char_image"
-        app:layout_constraintTop_toTopOf="@+id/detail_char_image" />
+        app:layout_constraintStart_toEndOf="@+id/detail_image"
+        app:layout_constraintTop_toTopOf="@+id/detail_image" />
 
     <TextView
-        android:id="@+id/detail_char_role"
+        android:id="@+id/detail_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:textSize="16sp"
         android:text="@string/char_role"
-        app:layout_constraintStart_toEndOf="@+id/detail_char_image"
-        app:layout_constraintTop_toBottomOf="@+id/detail_char_name" />
+        app:layout_constraintStart_toEndOf="@+id/detail_image"
+        app:layout_constraintTop_toBottomOf="@+id/detail_name" />
 
     <TextView
-        android:id="@+id/detail_char_id"
+        android:id="@+id/detail_subbredit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:textSize="16sp"
         android:text="@string/mal_id"
-        app:layout_constraintStart_toEndOf="@+id/detail_char_image"
-        app:layout_constraintTop_toBottomOf="@+id/detail_char_role" />
+        app:layout_constraintStart_toEndOf="@+id/detail_image"
+        app:layout_constraintTop_toBottomOf="@+id/detail_title" />
 
     <view
         android:id="@+id/detail_recycler_view"
@@ -69,6 +69,6 @@ tools:context=".fragments.ListDetailsFragment">
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_char_image" />
+        app:layout_constraintTop_toBottomOf="@+id/detail_image" />
 
 </android.support.constraint.ConstraintLayout>

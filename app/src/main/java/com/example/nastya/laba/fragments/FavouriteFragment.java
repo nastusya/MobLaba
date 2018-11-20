@@ -64,7 +64,6 @@ public class FavouriteFragment extends Fragment {
     }
 
     private void initRecyclerView() {
-        children = new ArrayList <>();
         adapter = new RedditAdapter();
         adapter.setOnCharacterClickListener(new OnChildrenClickListener() {
             @Override
@@ -73,10 +72,8 @@ public class FavouriteFragment extends Fragment {
                 if (mainActivity != null) {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable(ARG_TITLE, (Serializable) children);
-
                     ListDetailsFragment listDetailsFragment = new ListDetailsFragment();
                     listDetailsFragment.setArguments(bundle);
-
                     mainActivity.setFragment(listDetailsFragment);
                 }
             }

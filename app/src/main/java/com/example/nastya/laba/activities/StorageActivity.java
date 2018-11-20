@@ -11,7 +11,6 @@ import com.example.nastya.laba.R;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import butterknife.BindView;
@@ -30,7 +29,7 @@ public class StorageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_storage);
         sharedPreferences = getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE);
         stringSet = sharedPreferences.getStringSet(RECORD, null);
-        List <String> childrenLost = new ArrayList <>(stringSet);
+        ArrayList <String> childrenLost = new ArrayList <>(stringSet);
         ArrayAdapter <String> arrayAdapter = new ArrayAdapter <>(this,
                 android.R.layout.simple_list_item_1, childrenLost);
         storageListView.setAdapter(arrayAdapter);
