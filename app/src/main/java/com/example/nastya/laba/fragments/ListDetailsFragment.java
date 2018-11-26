@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nastya.laba.R;
-import com.example.nastya.laba.adapters.DetailsAdapter;
 import com.example.nastya.laba.model.children.Children;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -25,64 +22,65 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ListDetailsFragment extends Fragment {
-    DetailsAdapter detailsAdapter;
     private boolean isImageFitToScreen;
     private SharedPreferences sharedPreferences;
-    public final static String ARG_TITLE = "Children";
     public final static String FAVOURITE = "Favourite";
+    private static final String DETAILS = "details";
     private Children children;
 
-    @BindView(R.id.detail_name)
-    protected TextView characterName;
-    @BindView(R.id.detail_image)
-    protected ImageView characterImage;
-    @BindView(R.id.detail_title)
-    protected TextView characterRole;
-    @BindView(R.id.detail_subbredit)
-    protected TextView characterID;
-    @BindView(R.id.detail_recycler_view)
-    protected RecyclerView recyclerView;
-    @BindView(R.id.favorite)
-    protected ImageView favorite;
+    @BindView(R.id.image_details)
+    protected ImageView imageDetails;
+    @BindView(R.id.fav)
+    protected ImageView favourite;
+    @BindView(R.id.title)
+    protected TextView title;
+    @BindView(R.id.subreddit)
+    protected TextView subreddit;
+    private Bundle bundle;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list_details, container, false);
+        View view = inflater.inflate(R.layout.details, container, false);
         ButterKnife.bind(this, view);
-        if (getArguments() != null) {
-            children = (Children) getArguments().getSerializable(ARG_TITLE);
-            displayCharacter();
-        }
-
-        if (getActivity() != null) {
-            ButterKnife.bind(this, view);
-            sharedPreferences = getActivity().getSharedPreferences(FAVOURITE,
-                    Context.MODE_PRIVATE);
-            initRecyclerView();
-        }
+        bundle = this.getArguments();
+        getData();
+        setItems();
         checkFavorite();
         return view;
     }
 
-    @OnClick(R.id.detail_image)
-    void fullScreenImage() {
-        if (isImageFitToScreen) {
-            isImageFitToScreen = false;
-            characterImage.setLayoutParams(new ConstraintLayout.LayoutParams(
-                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
-                    ConstraintLayout.LayoutParams.WRAP_CONTENT));
-            characterImage.setAdjustViewBounds(true);
-        } else {
-            isImageFitToScreen = true;
-            characterImage.setLayoutParams(new ConstraintLayout.LayoutParams(
-                    ConstraintLayout.LayoutParams.MATCH_PARENT,
-                    ConstraintLayout.LayoutParams.MATCH_PARENT));
-            characterImage.setScaleType(ImageView.ScaleType.FIT_XY);
+    public void getData() {
+        if (bundle != null) {
+            children = new Gson().fromJson(bundle.getString(DETAILS), Children.class);
         }
     }
 
-    @OnClick(R.id.favorite)
+    private void setItems() {
+        Picasso.get().load(children.getData().getThumbnail()).into(imageDetails);
+        title.setText(children.getData().getTitle());
+        subreddit.setText(children.getData().getSubreddit());
+        sharedPreferences = getActivity().getSharedPreferences(FAVOURITE, Context.MODE_PRIVATE);
+    }
+
+    @OnClick(R.id.image_details)
+    void fullScreenImage() {
+        if (isImageFitToScreen) {
+            isImageFitToScreen = false;
+            imageDetails.setLayoutParams(new ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT));
+            imageDetails.setAdjustViewBounds(true);
+        } else {
+            isImageFitToScreen = true;
+            imageDetails.setLayoutParams(new ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.MATCH_PARENT,
+                    ConstraintLayout.LayoutParams.MATCH_PARENT));
+            imageDetails.setScaleType(ImageView.ScaleType.FIT_XY);
+        }
+    }
+
+    @OnClick(R.id.fav)
     void setFavorite() {
         SharedPreferences.Editor prefEditor = sharedPreferences.edit();
         if (checkFavorite()) {
@@ -99,27 +97,11 @@ public class ListDetailsFragment extends Fragment {
 
     boolean checkFavorite() {
         if (!sharedPreferences.contains(children.getData().getAuthorFullname())) {
-            favorite.setImageResource(R.drawable.ic_favorite);
+            favourite.setImageResource(R.drawable.ic_favorite);
             return false;
         } else {
-            favorite.setImageResource(R.drawable.ic_fav_black);
+            favourite.setImageResource(R.drawable.ic_fav_black);
             return true;
         }
-    }
-
-    void displayCharacter() {
-        characterName.setText(children.getData().getAuthorFullname());
-        Picasso.get().load(children.getData().getThumbnail()).into(characterImage);
-        characterRole.setText(String.format("%s: %s", getString(R.string.char_role),
-                children.getData().getSubreddit()));
-        characterID.setText(String.format("%s: %s", getString(R.string.mal_id),
-                children.getData().getTitle()));
-    }
-
-
-    private void initRecyclerView() {
-        detailsAdapter = new DetailsAdapter();
-        recyclerView.setAdapter(detailsAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 }

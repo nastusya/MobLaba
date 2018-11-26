@@ -12,13 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.nastya.laba.R;
-import com.example.nastya.laba.activities.MainActivity;
 import com.example.nastya.laba.adapters.RedditAdapter;
-import com.example.nastya.laba.http_client.OnChildrenClickListener;
 import com.example.nastya.laba.model.children.Children;
 import com.google.gson.Gson;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
@@ -30,7 +27,6 @@ public class FavouriteFragment extends Fragment {
     RedditAdapter adapter;
     private ArrayList <Children> children = new ArrayList <>();
     public final static String FAVOURITE = "Favourite";
-    public final static String ARG_TITLE = "Children";
     @BindView(R.id.favorite_recycler_view)
     protected RecyclerView recyclerView;
 
@@ -38,13 +34,9 @@ public class FavouriteFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
-
         ButterKnife.bind(this, view);
-        children = null;
-        if (getActivity() != null) {
-            initRecyclerView();
-            getPreferences();
-        }
+        getPreferences();
+        initRecyclerView();
         return view;
     }
 
@@ -55,30 +47,19 @@ public class FavouriteFragment extends Fragment {
         Map <String, ?> map = preferences.getAll();
         if (map != null) {
             for (Map.Entry <String, ?> entry : map.entrySet()) {
-                final Children children;
-                children = new Gson().
+                final Children child;
+                child = new Gson().
                         fromJson(entry.getValue().toString(), Children.class);
-                children.getData();
+                children.add(child);
             }
         }
     }
 
     private void initRecyclerView() {
-        adapter = new RedditAdapter();
-        adapter.setOnCharacterClickListener(new OnChildrenClickListener() {
-            @Override
-            public void onChildrenClick(Children children) {
-                MainActivity mainActivity = (MainActivity) getActivity();
-                if (mainActivity != null) {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(ARG_TITLE, (Serializable) children);
-                    ListDetailsFragment listDetailsFragment = new ListDetailsFragment();
-                    listDetailsFragment.setArguments(bundle);
-                    mainActivity.setFragment(listDetailsFragment);
-                }
-            }
-        });
+        adapter = new RedditAdapter(getContext(), children);
+        RecyclerView.LayoutManager layoutManager =
+                new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 }
