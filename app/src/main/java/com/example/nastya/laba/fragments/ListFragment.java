@@ -14,10 +14,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.nastya.laba.ApplicationEx;
+import com.example.nastya.laba.MVPInterfaces.ListContract;
 import com.example.nastya.laba.R;
 import com.example.nastya.laba.adapters.RedditAdapter;
 import com.example.nastya.laba.entity.Feed;
 import com.example.nastya.laba.entity.children.Children;
+import com.example.nastya.laba.presenter.ListPresenter;
 
 import java.util.ArrayList;
 
@@ -28,6 +30,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListFragment extends Fragment {
+    private ListPresenter listPresenter;
     private boolean isChange = false;
     @BindView(R.id.list_photos)
     protected RecyclerView recyclerView;
@@ -40,19 +43,28 @@ public class ListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_reddit_list, container, false);
+        listPresenter = new ListPresenter((ApplicationEx) getContext().getApplicationContext());
+        listPresenter.attachView((ListContract.View) this);
         if (getActivity() != null) {
             ButterKnife.bind(this, view);
             swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
                     isChange = true;
-                    makeCall();
+                    listPresenter.loadData();
                     swipeContainer.setRefreshing(false);
                 }
             });
         }
-        makeCall();
+        listPresenter.loadData();
         return view;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        listPresenter.onResume();
     }
 
     public void makeCall() {

@@ -11,9 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.nastya.laba.ApplicationEx;
+import com.example.nastya.laba.MVPInterfaces.FavContract;
 import com.example.nastya.laba.R;
 import com.example.nastya.laba.adapters.RedditAdapter;
 import com.example.nastya.laba.entity.children.Children;
+import com.example.nastya.laba.model.FavModel;
+import com.example.nastya.laba.presenter.FavPresenter;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -25,6 +29,7 @@ import butterknife.ButterKnife;
 
 public class FavouriteFragment extends Fragment {
     RedditAdapter adapter;
+    private FavPresenter favPresenter;
     private ArrayList <Children> children = new ArrayList <>();
     public final static String FAVOURITE = "Favourite";
     @BindView(R.id.favorite_recycler_view)
@@ -37,6 +42,9 @@ public class FavouriteFragment extends Fragment {
         ButterKnife.bind(this, view);
         getPreferences();
         initRecyclerView();
+        favPresenter = new FavPresenter((ApplicationEx) getContext().getApplicationContext());
+        favPresenter.attachView((FavContract.View) this);
+
         return view;
     }
 

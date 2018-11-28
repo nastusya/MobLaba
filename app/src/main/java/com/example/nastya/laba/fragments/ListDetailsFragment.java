@@ -12,8 +12,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.nastya.laba.ApplicationEx;
+import com.example.nastya.laba.MVPInterfaces.DetailsContract;
 import com.example.nastya.laba.R;
 import com.example.nastya.laba.entity.children.Children;
+import com.example.nastya.laba.presenter.DetailsPresenter;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -23,6 +26,7 @@ import butterknife.OnClick;
 
 public class ListDetailsFragment extends Fragment {
     private boolean isImageFitToScreen;
+    private DetailsPresenter detailPresenter;
     private SharedPreferences sharedPreferences;
     public final static String FAVOURITE = "Favourite";
     private static final String DETAILS = "details";
@@ -47,6 +51,8 @@ public class ListDetailsFragment extends Fragment {
         getData();
         setItems();
         checkFavorite();
+        detailPresenter = new DetailsPresenter((ApplicationEx) getContext().getApplicationContext());
+        detailPresenter.attachView((DetailsContract.View) this);
         return view;
     }
 

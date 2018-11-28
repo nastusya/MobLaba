@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.example.nastya.laba.ApplicationEx;
 import com.example.nastya.laba.R;
+import com.example.nastya.laba.TabNavigation;
 import com.example.nastya.laba.fragments.FavouriteFragment;
 import com.example.nastya.laba.fragments.ListFragment;
 
@@ -17,6 +19,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.navigation_menu)
     BottomNavigationView bottomNavigation;
+    TabNavigation tabNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,15 +27,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         bottomNavigation.setOnNavigationItemSelectedListener(navigationListener);
-        setFragment(new ListFragment());
+        tabNavigation = new TabNavigation(getSupportFragmentManager());
+        ((ApplicationEx) getApplication()).setTabNavigation(tabNavigation);
+        tabNavigation.setFragment(new ListFragment(), false);
     }
 
-    public void setFragment(final Fragment fragment) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit();
-    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment = new FavouriteFragment();
                             break;
                     }
-                    setFragment(selectedFragment);
+                    tabNavigation.setFragment(selectedFragment, false);
                     return true;
                 }
             };

@@ -10,13 +10,14 @@ public class DetailsPresenter extends PresenterBase <DetailsContract.View>
     private DetailsContract.Model model;
 
     public DetailsPresenter(final ApplicationEx applicationEx) {
-
         super(applicationEx);
+        model = applicationEx.getDetailsModel();
     }
 
     @Override
     public void onResume() {
         Children children = getCurrentChildren();
+        model.setFavourite(children);
         view.displayChildren(children, model.checkFavourite(children));
 
     }

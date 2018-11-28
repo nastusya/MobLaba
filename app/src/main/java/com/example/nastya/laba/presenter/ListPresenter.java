@@ -10,13 +10,14 @@ public class ListPresenter extends PresenterBase <ListContract.View>
         implements ListContract.Presenter {
     private ListContract.Model model;
 
-    ListPresenter(ApplicationEx applicationEx) {
+    public ListPresenter(ApplicationEx applicationEx) {
         super(applicationEx);
+        model = applicationEx.getListModel();
     }
 
     @Override
     public void onResume() {
-
+        loadData();
     }
 
     @Override
@@ -32,7 +33,8 @@ public class ListPresenter extends PresenterBase <ListContract.View>
 
     @Override
     public void seletedChild(Children children) {
-
+        applicationEx.getTabNavigation().showDetailsFragment();
+        applicationEx.setCurrentChildren(children);
     }
 
     @Override

@@ -10,7 +10,7 @@ public class FavPresenter extends PresenterBase <FavContract.View>
         implements FavContract.Presenter {
     FavContract.Model model;
 
-    FavPresenter(ApplicationEx applicationEx) {
+    public FavPresenter(ApplicationEx applicationEx) {
         super(applicationEx);
     }
 
@@ -22,7 +22,8 @@ public class FavPresenter extends PresenterBase <FavContract.View>
 
     @Override
     public void seletedChild(Children children) {
-
+        applicationEx.setCurrentChildren(children);
+        applicationEx.getTabNavigation().showDetailsFragment();
     }
 
     @Override
@@ -37,6 +38,6 @@ public class FavPresenter extends PresenterBase <FavContract.View>
 
     @Override
     public void onResume() {
-
+        loadData();
     }
 }
