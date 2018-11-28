@@ -16,8 +16,8 @@ import android.widget.Toast;
 import com.example.nastya.laba.ApplicationEx;
 import com.example.nastya.laba.R;
 import com.example.nastya.laba.adapters.RedditAdapter;
-import com.example.nastya.laba.model.Feed;
-import com.example.nastya.laba.model.children.Children;
+import com.example.nastya.laba.entity.Feed;
+import com.example.nastya.laba.entity.children.Children;
 
 import java.util.ArrayList;
 

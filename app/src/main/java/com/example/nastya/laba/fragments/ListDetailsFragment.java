@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nastya.laba.R;
-import com.example.nastya.laba.model.children.Children;
+import com.example.nastya.laba.entity.children.Children;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 

@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.nastya.laba.R;
 import com.example.nastya.laba.activities.MainActivity;
@@ -16,7 +15,7 @@ import com.example.nastya.laba.fragments.ListDetailsFragment;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
-import com.example.nastya.laba.model.children.Children;
+import com.example.nastya.laba.entity.children.Children;
 
 import java.util.ArrayList;
 

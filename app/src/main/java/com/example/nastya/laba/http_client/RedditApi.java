@@ -1,6 +1,6 @@
 package com.example.nastya.laba.http_client;
 
-import com.example.nastya.laba.model.Feed;
+import com.example.nastya.laba.entity.Feed;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.nastya.laba.R;
 import com.example.nastya.laba.adapters.RedditAdapter;
-import com.example.nastya.laba.model.children.Children;
+import com.example.nastya.laba.entity.children.Children;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

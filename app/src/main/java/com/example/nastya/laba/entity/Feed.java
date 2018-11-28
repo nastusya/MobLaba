@@ -1,17 +1,17 @@
-package com.example.nastya.laba.model.children;
+package com.example.nastya.laba.entity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Children {
-
-    @SerializedName("data")
-    @Expose
-    private Data data;
+public class Feed {
 
     @SerializedName("kind")
     @Expose
     private String kind;
+
+    @SerializedName("data")
+    @Expose
+    private Data data;
 
     public Data getData() {
         return data;
@@ -23,9 +23,9 @@ public class Children {
 
     @Override
     public String toString() {
-        return "Children{" +
-                "data=" + data +
-                ", kind='" + kind + '\'' +
+        return "Feed{" +
+                "kind='" + kind + '\'' +
+                ", data=" + data +
                 '}';
     }
 }

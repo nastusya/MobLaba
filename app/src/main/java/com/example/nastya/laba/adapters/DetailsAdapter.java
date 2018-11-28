@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.nastya.laba.R;
-import com.example.nastya.laba.model.children.Children;
+import com.example.nastya.laba.entity.children.Children;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

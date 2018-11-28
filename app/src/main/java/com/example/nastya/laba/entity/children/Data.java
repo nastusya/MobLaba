@@ -1,9 +1,7 @@
-package com.example.nastya.laba.model.children;
+package com.example.nastya.laba.entity.children;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 public class Data {
 

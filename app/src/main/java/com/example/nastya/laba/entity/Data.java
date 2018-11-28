@@ -1,6 +1,6 @@
-package com.example.nastya.laba.model;
+package com.example.nastya.laba.entity;
 
-import com.example.nastya.laba.model.children.Children;
+import com.example.nastya.laba.entity.children.Children;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
