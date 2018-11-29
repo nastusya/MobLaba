@@ -20,6 +20,7 @@ import com.example.nastya.laba.model.Feed;
 import com.example.nastya.laba.model.children.Children;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,7 +57,8 @@ public class ListFragment extends Fragment {
     }
 
     public void makeCall() {
-        Call <Feed> call = ApplicationEx.getApiService().getData();
+        Call <Feed> call = ((ApplicationEx) Objects.requireNonNull(getActivity())
+                .getApplication()).getApiService().getData();
         call.enqueue(new Callback <Feed>() {
             @Override
             public void onResponse(Call <Feed> call, Response <Feed> response) {
