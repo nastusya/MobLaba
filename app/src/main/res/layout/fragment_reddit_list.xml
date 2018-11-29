@@ -4,6 +4,16 @@
     android:layout_height="wrap_content"
     android:background="#fff">
 
+    <Button
+        android:id="@+id/move"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:background="@color/colorBackground"
+        android:text="@string/move"
+        android:textColor="@color/colorForSecondaryText" />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeContainer"
         android:layout_width="match_parent"

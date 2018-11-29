@@ -27,6 +27,7 @@
     <string name="favourites">Favourites</string>
     <string name="add_to_fav">Add to favourites</string>
     <string name="author">Author</string>
+    <string name="move">Favourite</string>
     <string name="mal_id">ID</string>
     <string name="char_name">Character name</string>
     <string name="char_role">Character role</string>

@@ -22,10 +22,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ListDetailsFragment extends Fragment {
-    private boolean isImageFitToScreen;
-    private SharedPreferences sharedPreferences;
+
     public final static String FAVOURITE = "Favourite";
     private static final String DETAILS = "details";
+    private boolean isImageFitToScreen;
+    private SharedPreferences sharedPreferences;
     private Children children;
 
     @BindView(R.id.image_details)
@@ -44,19 +45,19 @@ public class ListDetailsFragment extends Fragment {
         View view = inflater.inflate(R.layout.details, container, false);
         ButterKnife.bind(this, view);
         bundle = this.getArguments();
-        getData();
-        setItems();
+        getChildren();
+        showChildren();
         checkFavorite();
         return view;
     }
 
-    public void getData() {
+    public void getChildren() {
         if (bundle != null) {
             children = new Gson().fromJson(bundle.getString(DETAILS), Children.class);
         }
     }
 
-    private void setItems() {
+    private void showChildren() {
         Picasso.get().load(children.getData().getThumbnail()).into(imageDetails);
         title.setText(children.getData().getTitle());
         subreddit.setText(children.getData().getSubreddit());

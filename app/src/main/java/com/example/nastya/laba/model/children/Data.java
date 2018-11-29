@@ -3,8 +3,6 @@ package com.example.nastya.laba.model.children;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class Data {
 
     @SerializedName("author_fullname")
@@ -38,7 +36,6 @@ public class Data {
     public String getSubreddit() {
         return subreddit;
     }
-
 
     @Override
     public String toString() {

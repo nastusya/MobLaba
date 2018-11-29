@@ -24,9 +24,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FavouriteFragment extends Fragment {
+
+    public final static String FAVOURITE = "Favourite";
     RedditAdapter adapter;
     private ArrayList <Children> children = new ArrayList <>();
-    public final static String FAVOURITE = "Favourite";
     @BindView(R.id.favorite_recycler_view)
     protected RecyclerView recyclerView;
 
@@ -35,27 +36,26 @@ public class FavouriteFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
         ButterKnife.bind(this, view);
-        getPreferences();
-        initRecyclerView();
+        initRecyclerView(getFavourites());
         return view;
     }
 
-    private void getPreferences() {
+    private ArrayList <Children> getFavourites() {
         SharedPreferences preferences;
         preferences = Objects.requireNonNull(getActivity()).getSharedPreferences(
                 FAVOURITE, Context.MODE_PRIVATE);
         Map <String, ?> map = preferences.getAll();
         if (map != null) {
             for (Map.Entry <String, ?> entry : map.entrySet()) {
-                final Children child;
-                child = new Gson().
+                final Children child = new Gson().
                         fromJson(entry.getValue().toString(), Children.class);
                 children.add(child);
             }
         }
+        return children;
     }
 
-    private void initRecyclerView() {
+    private void initRecyclerView(ArrayList <Children> children) {
         adapter = new RedditAdapter(getContext(), children);
         RecyclerView.LayoutManager layoutManager =
                 new LinearLayoutManager(getActivity());

@@ -11,7 +11,7 @@ public class ApplicationEx extends Application {
 
     private static final String ROOT_URL = "https://reddit.com/";
 
-    private  Retrofit getRetrofitInstance() {
+    private Retrofit getRetrofitInstance() {
         return new Retrofit.Builder()
                 .baseUrl(ROOT_URL)
                 .addConverterFactory(GsonConverterFactory.create())

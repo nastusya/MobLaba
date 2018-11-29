@@ -6,15 +6,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.nastya.laba.ApplicationEx;
 import com.example.nastya.laba.R;
+import com.example.nastya.laba.activities.MainActivity;
 import com.example.nastya.laba.adapters.RedditAdapter;
 import com.example.nastya.laba.model.Feed;
 import com.example.nastya.laba.model.children.Children;
@@ -35,6 +36,8 @@ public class ListFragment extends Fragment {
     public ImageView noData;
     @BindView(R.id.swipeContainer)
     protected SwipeRefreshLayout swipeContainer;
+    @BindView(R.id.move)
+    Button moveToFav;
     RedditAdapter adapter;
 
     @Override
@@ -52,6 +55,15 @@ public class ListFragment extends Fragment {
                 }
             });
         }
+
+        moveToFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity) view.getContext())
+                        .setFragment(new FavouriteFragment(), true);
+            }
+        });
+
         makeCall();
         return view;
     }
@@ -68,7 +80,6 @@ public class ListFragment extends Fragment {
                     noData.setImageAlpha(R.drawable.ic_error);
                 } else {
                     ArrayList <Children> children = response.body().getData().getChildren();
-                    Log.e("ERROR", children.toString());
                     Toast.makeText(getContext(), children.toString(), Toast.LENGTH_LONG);
                     if (!isChange) {
                         setAdapter(children);
@@ -86,7 +97,7 @@ public class ListFragment extends Fragment {
         });
     }
 
-    public void setAdapter(ArrayList<Children> children) {
+    public void setAdapter(ArrayList <Children> children) {
         adapter = new RedditAdapter(getContext(), children);
         RecyclerView.LayoutManager layoutManager =
                 new LinearLayoutManager(getActivity());
