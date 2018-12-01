@@ -50,6 +50,7 @@ public class ListDetailsFragment extends Fragment {
         return view;
     }
 
+    scdsdcffsdcsa
     public Children getChildren() {
         return bundle == null ? null : new Gson()
                 .fromJson(bundle.getString(DETAILS), Children.class);
