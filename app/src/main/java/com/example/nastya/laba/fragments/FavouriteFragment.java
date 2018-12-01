@@ -26,8 +26,7 @@ import butterknife.ButterKnife;
 public class FavouriteFragment extends Fragment {
 
     public final static String FAVOURITE = "Favourite";
-    RedditAdapter adapter;
-    private ArrayList <Children> children = new ArrayList <>();
+    private RedditAdapter adapter;
     @BindView(R.id.favorite_recycler_view)
     protected RecyclerView recyclerView;
 
@@ -41,6 +40,7 @@ public class FavouriteFragment extends Fragment {
     }
 
     private ArrayList <Children> getFavourites() {
+        ArrayList <Children> children = new ArrayList <>();
         SharedPreferences preferences;
         preferences = Objects.requireNonNull(getActivity()).getSharedPreferences(
                 FAVOURITE, Context.MODE_PRIVATE);
