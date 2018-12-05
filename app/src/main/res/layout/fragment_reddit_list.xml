@@ -11,7 +11,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:background="@color/colorBackground"
-        android:text="move"
+        android:text="Favourite"
         android:textColor="@color/colorForSecondaryText" />
 
     <android.support.v4.widget.SwipeRefreshLayout

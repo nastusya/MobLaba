@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.nastya.laba.ApplicationEx;
 import com.example.nastya.laba.R;
 import com.example.nastya.laba.activities.MainActivity;
 import com.example.nastya.laba.entity.children.Data;
@@ -21,7 +22,6 @@ import java.util.ArrayList;
 
 public class RedditAdapter extends RecyclerView.Adapter <RedditViewHolder> {
 
-    private static final String DETAILS = "details";
     private ArrayList <Children> children;
     private final Context context;
 
@@ -52,11 +52,8 @@ public class RedditAdapter extends RecyclerView.Adapter <RedditViewHolder> {
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ListDetailsFragment fragment = new ListDetailsFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString(DETAILS, new Gson().toJson(children.get(position)));
-                fragment.setArguments(bundle);
-                ((MainActivity) view.getContext()).setFragment(fragment, true);
+                ApplicationEx mApplication = (ApplicationEx) context.getApplicationContext();
+                mApplication.getFragmentHandler().goToDetails(children.get(position));
             }
         });
     }
@@ -64,10 +61,6 @@ public class RedditAdapter extends RecyclerView.Adapter <RedditViewHolder> {
     public void clear() {
         children.clear();
         notifyDataSetChanged();
-    }
-
-    public void setItems(ArrayList <Children> photos) {
-        this.children = photos;
     }
 
     @Override

@@ -1,13 +1,13 @@
 package com.example.nastya.laba.models;
 
 import com.example.nastya.laba.entity.children.Children;
-import com.example.nastya.laba.repositories.SharedPreferences;
+import com.example.nastya.laba.repositories.SharedPreferencesRepository;
 
 public class DetailInterctorImpl implements DetailInteractor {
 
-    SharedPreferences preferences;
+    SharedPreferencesRepository preferences;
 
-    public DetailInterctorImpl(SharedPreferences preferences) {
+    public DetailInterctorImpl(SharedPreferencesRepository preferences) {
         this.preferences = preferences;
     }
 

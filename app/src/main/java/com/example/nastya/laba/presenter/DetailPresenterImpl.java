@@ -10,7 +10,7 @@ public class DetailPresenterImpl extends BasePresenter
         implements DetailPresenter, DetailInteractor.OnFinishedListener {
 
     private DetailsView view;
-    private Children hit;
+    private Children children;
 
     public DetailPresenterImpl(DetailsView view) {
         this.view = view;
@@ -26,7 +26,7 @@ public class DetailPresenterImpl extends BasePresenter
 
     public void checkFavourite(Activity activity) {
         getApplicationInstance(activity).getDetailsInteractor().
-                doFavourite(hit, this);
+                doFavourite(children, this);
     }
 
     public void favouriteResult(boolean favourite) {
@@ -34,9 +34,9 @@ public class DetailPresenterImpl extends BasePresenter
     }
 
     public void getData(Activity activity) {
-        hit = getApplicationInstance(activity).getFragmentHandler().getArguments();
-        view.setItems(hit);
-        getApplicationInstance(activity).getDetailsInteractor().isFavourite(hit,
+        children = getApplicationInstance(activity).getFragmentHandler().getArguments();
+        view.setItems(children);
+        getApplicationInstance(activity).getDetailsInteractor().isFavourite(children,
                 this);
     }
 }

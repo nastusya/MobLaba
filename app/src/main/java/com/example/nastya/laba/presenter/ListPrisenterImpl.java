@@ -5,17 +5,17 @@ import android.app.Activity;
 import com.example.nastya.laba.entity.children.Children;
 import com.example.nastya.laba.fragments.FavouriteFragment;
 import com.example.nastya.laba.models.ListInteractor;
-import com.example.nastya.laba.views.MainView;
+import com.example.nastya.laba.views.ListView;
 
 import java.util.ArrayList;
 
 public class ListPrisenterImpl extends BasePresenter implements ListPresenter,
         ListInteractor.OnFinishedListener {
 
-    private MainView view;
+    private ListView view;
 
-    public ListPrisenterImpl(MainView mainView) {
-        this.view = mainView;
+    public ListPrisenterImpl(ListView listView) {
+        this.view = listView;
     }
 
     @Override

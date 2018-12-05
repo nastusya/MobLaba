@@ -4,7 +4,7 @@ import com.example.nastya.laba.entity.children.Children;
 
 import java.util.ArrayList;
 
-public interface MainView {
+public interface ListView {
     void setDataToRecyclerView(ArrayList <Children> childrenArrayList);
 
     void refreshData(ArrayList <Children> children);

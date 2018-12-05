@@ -9,7 +9,7 @@ import com.example.nastya.laba.models.FavInteractor;
 import com.example.nastya.laba.models.FavInteractorImpl;
 import com.example.nastya.laba.models.ListInteractor;
 import com.example.nastya.laba.models.ListInteractorImpl;
-import com.example.nastya.laba.repositories.SharedPreferences;
+import com.example.nastya.laba.repositories.SharedPreferencesRepository;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -17,11 +17,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApplicationEx extends Application {
 
     public static final String DETAILS = "details";
+    public static final int HEIGHT = 1150;
     private static final String ROOT_URL = "https://reddit.com/";
     private DetailInteractor detailsInteractor;
     private FavInteractor favInteractor;
     private ListInteractor listInteractor;
-    private SharedPreferences repository;
+    private SharedPreferencesRepository repository;
     private FragmentHandler fragmentHandler;
 
     @Override
@@ -33,7 +34,7 @@ public class ApplicationEx extends Application {
     private void setupItems() {
         final RedditApi apiClient = createApiClient();
         listInteractor = new ListInteractorImpl(apiClient);
-        repository = new SharedPreferences(getApplicationContext());
+        repository = new SharedPreferencesRepository(getApplicationContext());
         favInteractor = new FavInteractorImpl(repository);
         detailsInteractor = new DetailInterctorImpl(repository);
     }
@@ -59,7 +60,7 @@ public class ApplicationEx extends Application {
         return listInteractor;
     }
 
-    public SharedPreferences getPreferences() {
+    public SharedPreferencesRepository getPreferences() {
         return repository;
     }
 

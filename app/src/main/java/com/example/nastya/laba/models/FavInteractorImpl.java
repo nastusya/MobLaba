@@ -1,7 +1,7 @@
 package com.example.nastya.laba.models;
 
 import com.example.nastya.laba.entity.children.Children;
-import com.example.nastya.laba.repositories.SharedPreferences;
+import com.example.nastya.laba.repositories.SharedPreferencesRepository;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -9,9 +9,9 @@ import java.util.Map;
 
 public class FavInteractorImpl implements FavInteractor {
 
-    SharedPreferences preferences;
+    SharedPreferencesRepository preferences;
 
-    public FavInteractorImpl(SharedPreferences preferences) {
+    public FavInteractorImpl(SharedPreferencesRepository preferences) {
         this.preferences = preferences;
     }
 

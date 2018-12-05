@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 import com.example.nastya.laba.R;
 import com.example.nastya.laba.adapters.RedditAdapter;
 import com.example.nastya.laba.entity.children.Children;
+import com.example.nastya.laba.presenter.FavPresenter;
+import com.example.nastya.laba.presenter.FavPresenterImpl;
+import com.example.nastya.laba.views.FavouritesView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -23,10 +26,12 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FavouriteFragment extends Fragment {
+public class FavouriteFragment extends Fragment implements FavouritesView {
 
     public final static String FAVOURITE = "Favourite";
     private RedditAdapter adapter;
+
+    private FavPresenter presenter;
     @BindView(R.id.favorite_recycler_view)
     protected RecyclerView recyclerView;
 
@@ -35,31 +40,27 @@ public class FavouriteFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
         ButterKnife.bind(this, view);
-        initRecyclerView(getFavourites());
+        presenter = new FavPresenterImpl(this);
+        initRecyclerView();
         return view;
     }
 
-    private ArrayList <Children> getFavourites() {
-        ArrayList <Children> children = new ArrayList <>();
-        SharedPreferences preferences;
-        preferences = Objects.requireNonNull(getActivity()).getSharedPreferences(
-                FAVOURITE, Context.MODE_PRIVATE);
-        Map <String, ?> map = preferences.getAll();
-        if (map != null) {
-            for (Map.Entry <String, ?> entry : map.entrySet()) {
-                final Children child = new Gson().
-                        fromJson(entry.getValue().toString(), Children.class);
-                children.add(child);
-            }
-        }
-        return children;
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.requestDataFromStorage(getActivity());
     }
 
-    private void initRecyclerView(ArrayList <Children> children) {
-        adapter = new RedditAdapter(getContext(), children);
-        RecyclerView.LayoutManager layoutManager =
-                new LinearLayoutManager(getActivity());
+
+    private void initRecyclerView() {
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
+
+    }
+
+    @Override
+    public void setDataToRecyclerView(ArrayList <Children> childrenArrayList) {
+        adapter = new RedditAdapter(getActivity(), childrenArrayList);
         recyclerView.setAdapter(adapter);
     }
 }

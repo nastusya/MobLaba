@@ -29,10 +29,10 @@ public class FragmentHandler {
         currentFragment = fragment;
     }
 
-    public void goToDetails(final Children hit) {
+    public void goToDetails(final Children children) {
         final ListDetailsFragment fragment = new ListDetailsFragment();
         final Bundle bundle = new Bundle();
-        bundle.putString(DETAILS, new Gson().toJson(hit));
+        bundle.putString(DETAILS, new Gson().toJson(children));
         fragment.setArguments(bundle);
         setFragment(fragment);
     }
