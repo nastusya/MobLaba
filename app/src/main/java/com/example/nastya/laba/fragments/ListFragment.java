@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +14,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.nastya.laba.ApplicationEx;
-import com.example.nastya.laba.MVPInterfaces.ListContract;
 import com.example.nastya.laba.R;
 import com.example.nastya.laba.activities.MainActivity;
 import com.example.nastya.laba.adapters.RedditAdapter;
 import com.example.nastya.laba.entity.Feed;
 import com.example.nastya.laba.entity.children.Children;
-import com.example.nastya.laba.presenter.ListPresenter;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -32,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListFragment extends Fragment implements ListContract.View {
+public class ListFragment extends Fragment {
     private boolean isChange = false;
     @BindView(R.id.list_photos)
     protected RecyclerView recyclerView;
@@ -41,24 +38,19 @@ public class ListFragment extends Fragment implements ListContract.View {
     protected SwipeRefreshLayout swipeContainer;
     @BindView(R.id.move)
     Button moveToFav;
-    private RedditAdapter adapter;
-    private ListPresenter mPresenter;
-    private ArrayList <Children> children;
+    RedditAdapter adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_reddit_list, container, false);
-        mPresenter = new ListPresenter( (ApplicationEx) getContext().getApplicationContext() );
-        mPresenter.attachView(this);
         if (getActivity() != null) {
             ButterKnife.bind(this, view);
-            setAdapter(children);
             swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
                     isChange = true;
-                    mPresenter.loadData();
+                    makeCall();
                     swipeContainer.setRefreshing(false);
                 }
             });
@@ -72,11 +64,40 @@ public class ListFragment extends Fragment implements ListContract.View {
             }
         });
 
-        mPresenter.loadData();
+        makeCall();
         return view;
     }
 
-    private void setAdapter(ArrayList <Children> children) {
+    public void makeCall() {
+        Call <Feed> call = ((ApplicationEx) Objects.requireNonNull(getActivity())
+                .getApplication()).getApiService().getData();
+        call.enqueue(new Callback <Feed>() {
+            @Override
+            public void onResponse(Call <Feed> call, Response <Feed> response) {
+                Toast.makeText(getActivity(), R.string.successful_response,
+                        Toast.LENGTH_LONG).show();
+                if (response.body() == null) {
+                    noData.setImageAlpha(R.drawable.ic_error);
+                } else {
+                    ArrayList <Children> children = response.body().getData().getChildren();
+                    Toast.makeText(getContext(), children.toString(), Toast.LENGTH_LONG);
+                    if (!isChange) {
+                        setAdapter(children);
+                    } else {
+                        refreshData(children);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call <Feed> call, Throwable throwable) {
+                Toast.makeText(getActivity(), R.string.unsuccessful_response
+                        + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void setAdapter(ArrayList <Children> children) {
         adapter = new RedditAdapter(getContext(), children);
         RecyclerView.LayoutManager layoutManager =
                 new LinearLayoutManager(getActivity());
@@ -84,23 +105,9 @@ public class ListFragment extends Fragment implements ListContract.View {
         recyclerView.setAdapter(adapter);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mPresenter.onResume();
-    }
-
-    @Override
-    public void noData() {
-        adapter.setItems(null);
-        adapter.notifyDataSetChanged();
-        noData.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void displayChildren(ArrayList <Children> childrenArrayList) {
-        adapter.setItems(childrenArrayList);
-        adapter.notifyDataSetChanged();
-        noData.setVisibility(View.INVISIBLE);
+    public void refreshData(ArrayList <Children> data) {
+        adapter.clear();
+        adapter.loadData(data);
+        swipeContainer.setRefreshing(false);
     }
 }

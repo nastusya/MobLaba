@@ -12,12 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.nastya.laba.ApplicationEx;
-import com.example.nastya.laba.MVPInterfaces.DetailsContract;
 import com.example.nastya.laba.R;
-import com.example.nastya.laba.adapters.RedditAdapter;
 import com.example.nastya.laba.entity.children.Children;
-import com.example.nastya.laba.presenter.DetailsPresenter;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -25,15 +21,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ListDetailsFragment extends Fragment implements DetailsContract.View{
+public class ListDetailsFragment extends Fragment {
+
     public static final String FAVOURITE = "Favourite";
     private static final String DETAILS = "details";
     private boolean isImageFitToScreen;
-    private RedditAdapter adapter;
     private SharedPreferences sharedPreferences;
     private Children children;
-    private DetailsPresenter mPresenter;
-
 
     @BindView(R.id.image_details)
     protected ImageView imageDetails;
@@ -51,17 +45,9 @@ public class ListDetailsFragment extends Fragment implements DetailsContract.Vie
         View view = inflater.inflate(R.layout.details, container, false);
         ButterKnife.bind(this, view);
         bundle = this.getArguments();
-        mPresenter = new DetailsPresenter( (ApplicationEx) getContext().getApplicationContext() );
-        mPresenter.attachView(this);
         showChildren(getChildren());
         checkFavorite();
         return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mPresenter.onResume();
     }
 
     public Children getChildren() {
@@ -116,17 +102,5 @@ public class ListDetailsFragment extends Fragment implements DetailsContract.Vie
             favourite.setImageResource(R.drawable.ic_fav_black);
             return true;
         }
-    }
-
-    @Override
-    public void displayChildren(Children children, boolean isFav) {
-        adapter.notifyDataSetChanged();
-    }
-
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mPresenter.detachView();
     }
 }

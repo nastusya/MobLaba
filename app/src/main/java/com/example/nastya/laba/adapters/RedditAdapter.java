@@ -30,6 +30,12 @@ public class RedditAdapter extends RecyclerView.Adapter <RedditViewHolder> {
         this.children = children;
     }
 
+    public void loadData(ArrayList <Children> photos) {
+        int position = getItemCount();
+        this.children.addAll(photos);
+        notifyItemRangeInserted(position, this.children.size());
+    }
+
     @Override
     public final RedditViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.info,
@@ -54,8 +60,14 @@ public class RedditAdapter extends RecyclerView.Adapter <RedditViewHolder> {
             }
         });
     }
-    public void setItems(ArrayList <Children> children) {
-        this.children = children;
+
+    public void clear() {
+        children.clear();
+        notifyDataSetChanged();
+    }
+
+    public void setItems(ArrayList <Children> photos) {
+        this.children = photos;
     }
 
     @Override
