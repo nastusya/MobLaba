@@ -33,7 +33,6 @@ public class ListPresenter extends PresenterBase <ListContract.View>
 
     @Override
     public void seletedChild(Children children) {
-        applicationEx.getTabNavigation().showDetailsFragment();
         applicationEx.setCurrentChildren(children);
     }
 

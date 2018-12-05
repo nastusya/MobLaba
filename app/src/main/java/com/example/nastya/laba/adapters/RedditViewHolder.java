@@ -19,7 +19,7 @@ class RedditViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.image)
     protected ImageView image;
     @BindView(R.id.parent_layout)
-    LinearLayout parentLayout;
+    protected LinearLayout parentLayout;
 
     RedditViewHolder(View itemView) {
         super(itemView);

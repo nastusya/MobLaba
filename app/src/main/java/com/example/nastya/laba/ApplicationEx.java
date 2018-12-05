@@ -16,7 +16,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApplicationEx extends Application {
 
     private Children children;
-    private TabNavigation tabNavigation;
     private SharedPreferences preferences;
     private ListModel listModel;
     private DetailsModel detailsModel;
@@ -68,14 +67,6 @@ public class ApplicationEx extends Application {
 
     public SharedPreferences getSharedPreferences() {
         return preferences;
-    }
-
-    public TabNavigation getTabNavigation() {
-        return tabNavigation;
-    }
-
-    public void setTabNavigation(TabNavigation tabNavigation) {
-        this.tabNavigation = tabNavigation;
     }
 
 }

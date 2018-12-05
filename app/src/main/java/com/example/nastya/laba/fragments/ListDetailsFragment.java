@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.nastya.laba.ApplicationEx;
 import com.example.nastya.laba.MVPInterfaces.DetailsContract;
 import com.example.nastya.laba.R;
+import com.example.nastya.laba.adapters.RedditAdapter;
 import com.example.nastya.laba.entity.children.Children;
 import com.example.nastya.laba.presenter.DetailsPresenter;
 import com.google.gson.Gson;
@@ -24,13 +25,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ListDetailsFragment extends Fragment {
-    private boolean isImageFitToScreen;
-    private DetailsPresenter detailPresenter;
-    private SharedPreferences sharedPreferences;
-    public final static String FAVOURITE = "Favourite";
+public class ListDetailsFragment extends Fragment implements DetailsContract.View{
+    public static final String FAVOURITE = "Favourite";
     private static final String DETAILS = "details";
+    private boolean isImageFitToScreen;
+    private RedditAdapter adapter;
+    private SharedPreferences sharedPreferences;
     private Children children;
+    private DetailsPresenter mPresenter;
+
 
     @BindView(R.id.image_details)
     protected ImageView imageDetails;
@@ -48,21 +51,25 @@ public class ListDetailsFragment extends Fragment {
         View view = inflater.inflate(R.layout.details, container, false);
         ButterKnife.bind(this, view);
         bundle = this.getArguments();
-        getData();
-        setItems();
+        mPresenter = new DetailsPresenter( (ApplicationEx) getContext().getApplicationContext() );
+        mPresenter.attachView(this);
+        showChildren(getChildren());
         checkFavorite();
-        detailPresenter = new DetailsPresenter((ApplicationEx) getContext().getApplicationContext());
-        detailPresenter.attachView((DetailsContract.View) this);
         return view;
     }
 
-    public void getData() {
-        if (bundle != null) {
-            children = new Gson().fromJson(bundle.getString(DETAILS), Children.class);
-        }
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.onResume();
     }
 
-    private void setItems() {
+    public Children getChildren() {
+        return bundle == null ? null : new Gson()
+                .fromJson(bundle.getString(DETAILS), Children.class);
+    }
+
+    private void showChildren(Children children) {
         Picasso.get().load(children.getData().getThumbnail()).into(imageDetails);
         title.setText(children.getData().getTitle());
         subreddit.setText(children.getData().getSubreddit());
@@ -109,5 +116,17 @@ public class ListDetailsFragment extends Fragment {
             favourite.setImageResource(R.drawable.ic_fav_black);
             return true;
         }
+    }
+
+    @Override
+    public void displayChildren(Children children, boolean isFav) {
+        adapter.notifyDataSetChanged();
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
     }
 }

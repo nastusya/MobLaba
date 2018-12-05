@@ -23,7 +23,6 @@ public class FavPresenter extends PresenterBase <FavContract.View>
     @Override
     public void seletedChild(Children children) {
         applicationEx.setCurrentChildren(children);
-        applicationEx.getTabNavigation().showDetailsFragment();
     }
 
     @Override
