@@ -26,4 +26,3 @@ public class FavInteractorImpl implements FavInteractor {
         onFinishedListener.addData(children);
     }
 }
-

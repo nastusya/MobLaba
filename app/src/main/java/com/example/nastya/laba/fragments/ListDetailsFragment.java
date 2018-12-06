@@ -129,5 +129,4 @@ public class ListDetailsFragment extends Fragment implements DetailsView {
             favourite.setImageResource(R.drawable.ic_fav_black);
         }
     }
-
 }

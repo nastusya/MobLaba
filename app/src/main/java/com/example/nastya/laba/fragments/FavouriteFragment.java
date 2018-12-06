@@ -51,7 +51,6 @@ public class FavouriteFragment extends Fragment implements FavouritesView {
         presenter.requestDataFromStorage(getActivity());
     }
 
-
     private void initRecyclerView() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
